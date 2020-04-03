@@ -4,11 +4,12 @@ exports.up = function(knex) {
       table.increments('id').primary();
       table.string('name', 25).notNullable();
       table.string('description', 100).notNullable();
-      table.integer('membros').unsigned(); 
-      table.integer('coach').unsigned();
+      table.string('password', 12).notNullable();
+      // table.integer('membros').unsigned(); 
+      // table.integer('coach').unsigned();
 
-      table.foreign('coach').references('idUser').inTable('users');
-      table.foreign('membros').references('idUser').inTable('users');
+      // table.foreign('coach').references('idUser').inTable('users');
+      // table.foreign('membros').references('idUser').inTable('users');
 
   })
 };

@@ -1,16 +1,14 @@
 const express = require('express');
 
+const UsersController = require('./controllers/UsersController');
+const TimesController = require('./controllers/TimesController');
 const routes = express.Router();
 
-routes.post('/users', (require, response) => {
-    const body = request.body;
+routes.get('/users', UsersController.index);
+routes.post('/users', UsersController.create);
 
 
-
-    return response.json({ 
-        evento: 'Project',
-        aluno: 'Spot-X'
-     });
-});
+routes.get('/times', TimesController.index);
+routes.post('/times', TimesController.create);
 
 module.exports = routes;

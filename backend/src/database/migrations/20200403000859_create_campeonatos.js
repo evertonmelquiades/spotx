@@ -1,7 +1,7 @@
 
 exports.up = function(knex) {
   return knex.schema.createTable('campeonatos', function (table) {
-      table.increments('idCamp').primary();
+      table.increments('id').primary();
       table.string('nome', 50).notNullable();
       table.string('description').notNullable();
       table.integer('numberTimes').notNullable();
