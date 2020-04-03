@@ -9,7 +9,7 @@ exports.up = function(knex) {
     table.string('password', 12).notNullable();
     table.string('number', 9).notNullable();
 
-    table.integer('times').unsigned().notNullable();
+    table.integer('times').unsigned();
     table.foreign('times').references('id').inTable('times');
 
   })
