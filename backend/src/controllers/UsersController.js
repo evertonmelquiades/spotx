@@ -17,21 +17,34 @@ module.exports = {
     },
 
     async create(request, response) {
-        const { name, nick, userLogin, number, password, id_times } = request.body;
-        
 
-        await connection('users').join('times', {'times.id': 'users.id_times'}).insert({
-            name,
-            nick,
-            userLogin,
-            password,
-            number,
-            id_times,
-        })
+        const { nick } = request.body;
+        const userCheck = await connection('users').where('nick', nick).select('nick').first();
 
+        try {
 
-        return response.json();
-    },
+            if(userCheck) {
 
+                response.status(404).send({ error: "Nick Already Registered" });
+            }
 
+            const { name, nick, userLogin, number, password, id_times } = request.body;
+
+            await connection('users').join('times', {'times.id': 'users.id_times'}).insert({
+                name,
+                nick,
+                userLogin,
+                password,
+                number,
+                id_times,
+            });
+
+            response.status(200).send("User Registred");
+            //response.status(200).json({ nick }); Retorna o nick criado
+
+        } catch (error) {
+
+            response.status(500).send({ error: "Registration Failed" });
+        }
+    }
 };
