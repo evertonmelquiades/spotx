@@ -3,15 +3,7 @@ const connection = require('../database/connection');
 module.exports = {
     async index(request, response) {
         const users = await connection('users')
-            .join('times',
-                'users.id',
-                'times.id')
-            .select('users.name as usuário',
-                'users.nick as nick',
-                'users.userLogin as login',
-                'users.password as senha',
-                'users.number as número',
-                'times.name as time');
+            .select('*');
 
         return response.json(users);
     },
@@ -30,7 +22,7 @@ module.exports = {
 
             const { name, nick, userLogin, number, password, id_times } = request.body;
 
-            await connection('users').join('times', {'times.id': 'users.id_times'}).insert({
+            await connection('users').join('times').insert({
                 name,
                 nick,
                 userLogin,
@@ -46,5 +38,13 @@ module.exports = {
 
             response.status(500).send({ error: "Registration Failed" });
         }
+    },
+
+    async delete(request, response) {
+        const { id } = request.params;
+
+        await connection('users').where('id', id).delete();
+
+        return response.status(204).send();
     }
 };
