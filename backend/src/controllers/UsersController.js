@@ -22,7 +22,7 @@ module.exports = {
 
             const { name, nick, userLogin, number, password, id_times } = request.body;
 
-            await connection('users').join('times').insert({
+            await connection('users').insert({
                 name,
                 nick,
                 userLogin,
@@ -42,6 +42,16 @@ module.exports = {
 
     async delete(request, response) {
         const { id } = request.params;
+        const password = request.headers.authorization;
+
+        const user = await connection('users')
+        .where('id', id)
+        .select('password')
+        .first();
+
+        if (user.password !== password) {
+            return response.status(401).json({ error: 'Operation not permitted.'});
+        }
 
         await connection('users').where('id', id).delete();
 
