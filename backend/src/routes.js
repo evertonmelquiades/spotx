@@ -12,7 +12,7 @@ routes.delete('/delete/:id', UsersController.delete);
 //Times
 routes.get('/times', TimesController.index);
 routes.post('/times', TimesController.create);
-// routes.put('/times/:id', TimesController.update);
+routes.put('/times/:id', TimesController.update);
 routes.delete('/times/:id', TimesController.delete);
 
 module.exports = routes;
