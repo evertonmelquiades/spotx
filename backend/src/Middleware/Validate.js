@@ -1,17 +1,17 @@
 const schema = require("../Utils/schemaJoi");
 
-const SignUp = async(request, response, next) => {
+const signUp = async(request, response, next) => {
 
     const { name, nick, userLogin, password, number } = request.body;
 
     try {
 
-        const { error } = await schema.signUp.validateAsync({
+        const { error } = await schema.validateAsync({
 
             name, nick, userLogin, password, number,
         });
 
-        if(!error) { next(); }
+        if(!error) { return next(); }
 
         return response.status(400).json({ error }).send();
 
@@ -20,3 +20,5 @@ const SignUp = async(request, response, next) => {
         return response.status(500).json({ error }).send();
     }
 }
+
+module.exports = signUp;

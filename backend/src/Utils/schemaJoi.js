@@ -1,6 +1,6 @@
 const Joi = require("@hapi/joi");
 
-const Cadastro  = Joi.object({
+const cadastro  = Joi.object({
 
     name: Joi.string()
         .min(3)
@@ -30,4 +30,4 @@ const Cadastro  = Joi.object({
         .max(9),
 });
 
-module.exports = Cadastro;
+module.exports = cadastro;
