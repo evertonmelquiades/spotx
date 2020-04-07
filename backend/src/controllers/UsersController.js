@@ -1,17 +1,11 @@
 const connection = require('../database/connection');
 
 module.exports = {
-    async index(request, response) {
-        const users = await connection('users')
-            .select('*');
-
-        return response.json(users);
-    },
 
     async create(request, response) {
 
-        const { nick } = request.body;
-        const userCheck = await connection('users').where('nick', nick).select('nick').first();
+        const { nick, userLogin } = request.body;
+        const userCheck = await connection('users').where('nick', nick, 'userLogin', userLogin).select('nick').first();
 
         try {
 
@@ -38,6 +32,13 @@ module.exports = {
 
             response.status(500).send({ error: "Registration Failed" });
         }
+    },
+
+    async index(request, response) {
+        const users = await connection('users')
+            .select('*');
+
+        return response.json(users);
     },
 
     async delete(request, response) {
