@@ -1,14 +1,14 @@
 const  { Router } = require("express");
 const UsersController = require('./controllers/UsersController');
 const TimesController = require('./controllers/TimesController');
-const validacao = require("./Middleware/Validate");
+//const validacao = require("./Middleware/Validate");
 
 
 const routes = Router();
 
 //Usuários
 routes.get('/list', UsersController.index);
-routes.post('/create',validacao.signUp, UsersController.create);
+routes.post('/create', UsersController.create);
 routes.delete('/delete/:id', UsersController.delete);
 
 //Times
